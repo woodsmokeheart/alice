@@ -2,10 +2,48 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #f5f5f5;
 }
 
 .content {
   flex: 1;
   padding: 20px;
   padding-bottom: 70px; /* Space for bottom bar */
+}
+
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.bottomBar button {
+  flex: 1;
+  margin: 0 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  font-size: 16px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.bottomBar button:hover {
+  background-color: #f0f0f0;
+}
+
+.bottomBar button.active {
+  color: #000;
+  font-weight: 500;
+  background-color: #f0f0f0;
 } 

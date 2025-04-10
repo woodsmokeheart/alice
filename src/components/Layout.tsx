@@ -11,8 +11,18 @@ const BottomBar = () => {
   
   return (
     <div className={styles.bottomBar}>
-      <button onClick={() => navigate('/chat')}>Элис</button>
-      <button onClick={() => navigate('/profile')}>Профиль</button>
+      <button 
+        onClick={() => navigate('/profile')} 
+        className={window.location.pathname === '/profile' ? styles.active : ''}
+      >
+        Профиль
+      </button>
+      <button 
+        onClick={() => navigate('/chat')} 
+        className={window.location.pathname === '/chat' ? styles.active : ''}
+      >
+        Элис
+      </button>
     </div>
   );
 };
