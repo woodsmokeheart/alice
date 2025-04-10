@@ -21,31 +21,63 @@ const Profile: React.FC = () => {
 
   const fetchUserProfile = async () => {
     try {
+      // Получаем данные пользователя из Telegram WebApp
+      const initData = WebApp.initData;
+      console.log('Telegram WebApp initData:', initData);
+      
       const user = WebApp.initDataUnsafe.user;
-      if (!user) {
-        setError('Пользователь не авторизован');
+      console.log('Telegram user data:', user);
+
+      if (!user || !user.id) {
+        setError('Пользователь не авторизован в Telegram');
+        setLoading(false);
         return;
       }
 
-      const { data, error: fetchError } = await supabase
+      // Проверяем, существует ли пользователь в базе
+      const { data: existingUser, error: fetchError } = await supabase
         .from('users')
         .select('*')
-        .eq('telegram_id', user.id)
-        .single();
+        .eq('telegram_id', user.id.toString())
+        .maybeSingle();
 
-      if (fetchError) throw fetchError;
+      if (fetchError) {
+        console.error('Error fetching user:', fetchError);
+        setError('Ошибка при загрузке профиля');
+        setLoading(false);
+        return;
+      }
 
-      if (data) {
-        setProfile({
-          username: data.username,
-          first_name: data.first_name,
-          last_name: data.last_name,
-          points: data.points,
-        });
+      if (!existingUser) {
+        // Если пользователя нет, создаем новую запись
+        const { data: newUser, error: createError } = await supabase
+          .from('users')
+          .insert([
+            {
+              telegram_id: user.id.toString(),
+              username: user.username || null,
+              first_name: user.first_name || null,
+              last_name: user.last_name || null,
+              points: 0
+            }
+          ])
+          .select()
+          .single();
+
+        if (createError) {
+          console.error('Error creating user:', createError);
+          setError('Ошибка при создании профиля');
+          setLoading(false);
+          return;
+        }
+
+        setProfile(newUser);
+      } else {
+        setProfile(existingUser);
       }
     } catch (error) {
-      setError('Ошибка при загрузке профиля');
       console.error('Profile fetch error:', error);
+      setError('Ошибка при загрузке профиля');
     } finally {
       setLoading(false);
     }
