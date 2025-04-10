@@ -1,0 +1,40 @@
+.container {
+  padding: 20px;
+}
+
+.profileCard {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label {
+  color: #666;
+}
+
+.value, .points {
+  font-weight: 500;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 20px;
+} 
