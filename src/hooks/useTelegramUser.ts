@@ -9,6 +9,11 @@ export const MOCK_USER = {
 };
 
 export const useTelegramUser = () => {
-  // Для локальной разработки всегда возвращаем тестового пользователя
-  return MOCK_USER;
+  // В режиме разработки возвращаем тестового пользователя
+  if (process.env.NODE_ENV === 'development') {
+    return MOCK_USER;
+  }
+  
+  // В продакшене возвращаем реального пользователя из Telegram
+  return WebApp.initDataUnsafe.user;
 }; 
