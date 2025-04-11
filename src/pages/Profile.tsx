@@ -1,9 +1,15 @@
 import React from 'react';
 import { useTelegramUser } from '../hooks/useTelegramUser';
+import WebApp from '@twa-dev/sdk';
 import styles from './Profile.module.css';
 
 const Profile: React.FC = () => {
   const { user, isLoading, error } = useTelegramUser();
+
+  const handleInviteFriend = () => {
+    // Используем Telegram WebApp для шаринга бота
+    WebApp.switchInlineQuery('Присоединяйся к волшебному миру историй!', ['users', 'groups']);
+  };
 
   if (isLoading) {
     return <div className={styles.loading}>Загрузка...</div>;
@@ -37,6 +43,13 @@ const Profile: React.FC = () => {
             </div>
           )}
         </div>
+
+        <button 
+          className={styles.inviteButton}
+          onClick={handleInviteFriend}
+        >
+          Пригласить друга
+        </button>
       </div>
     </div>
   );

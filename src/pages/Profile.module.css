@@ -18,6 +18,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  margin-bottom: 20px;
 }
 
 .infoRow {
@@ -37,4 +38,25 @@
 .loading, .error {
   text-align: center;
   padding: 20px;
+}
+
+.inviteButton {
+  width: 100%;
+  padding: 12px;
+  background: var(--tg-theme-button-color, #2481cc);
+  color: var(--tg-theme-button-text-color, #ffffff);
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.inviteButton:hover {
+  opacity: 0.9;
+}
+
+.inviteButton:active {
+  opacity: 0.8;
 } 
