@@ -3,12 +3,15 @@ import { useTelegramUser } from '../hooks/useTelegramUser';
 import WebApp from '@twa-dev/sdk';
 import styles from './Profile.module.css';
 
+const BOT_USERNAME = 'Alicestory_bot';
+
 const Profile: React.FC = () => {
   const { user, isLoading, error } = useTelegramUser();
 
   const handleInviteFriend = () => {
-    // Используем Telegram WebApp для шаринга бота
-    WebApp.switchInlineQuery('Присоединяйся к волшебному миру историй!', ['users', 'groups']);
+    // Создаем ссылку для шаринга бота
+    const shareUrl = `https://t.me/share/url?url=https://t.me/${BOT_USERNAME}&text=Присоединяйся к волшебному миру историй!`;
+    WebApp.openTelegramLink(shareUrl);
   };
 
   if (isLoading) {
