@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Profile from '../pages/Profile';
+import AliceChat from './AliceChat/AliceChat';
 import styles from './Layout.module.css';
 
-const AliceChat = () => <div>Чат с Элис</div>;
 const AdminPanel = () => <div>Админ панель</div>;
 
 const BottomBar = () => {

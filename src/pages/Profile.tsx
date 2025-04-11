@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import WebApp from '@twa-dev/sdk';
 import { supabase } from '../services/supabase';
+import { useTelegramUser } from '../hooks/useTelegramUser';
 import styles from './Profile.module.css';
 
 interface UserProfile {
@@ -14,6 +14,7 @@ const Profile: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const user = useTelegramUser();
 
   useEffect(() => {
     fetchUserProfile();
@@ -21,20 +22,12 @@ const Profile: React.FC = () => {
 
   const fetchUserProfile = async () => {
     try {
-      // Получаем данные пользователя из Telegram WebApp
-      const initData = WebApp.initData;
-      console.log('Telegram WebApp initData:', initData);
-      
-      const user = WebApp.initDataUnsafe.user;
-      console.log('Telegram user data:', user);
-
       if (!user || !user.id) {
-        setError('Пользователь не авторизован в Telegram');
+        setError('Пользователь не авторизован');
         setLoading(false);
         return;
       }
 
-      // Проверяем, существует ли пользователь в базе
       const { data: existingUser, error: fetchError } = await supabase
         .from('users')
         .select('*')
