@@ -18,7 +18,7 @@ const AliceChat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [isLoading, setIsLoading] = useState(true);
-  const user = useTelegramUser();
+  const { user, isLoading: userLoading } = useTelegramUser();
 
   useEffect(() => {
     const initializeChat = async () => {
